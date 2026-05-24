@@ -36,3 +36,15 @@ def show_books():
             f"Оценка: {book['rating']} | "
             f"Дата: {book['date']}"
         )
+
+
+def average_rating():
+    books = load_books()
+
+    if not books:
+        print("Нет книг для расчёта.")
+        return
+
+    avg = sum(book["rating"] for book in books) / len(books)
+
+    print(f"Средняя оценка: {avg:.2f}")
