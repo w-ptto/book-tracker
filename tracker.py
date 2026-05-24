@@ -18,3 +18,8 @@ def load_books():
 def save_books(books):
     with open(FILE_NAME, "w", encoding="utf-8") as file:
         json.dump(books, file, ensure_ascii=False, indent=4)
+
+def add_book():
+    books = load_books()
+    author = input("Введите имя автора книги:")
+    title = input ("Введите название книги:")
