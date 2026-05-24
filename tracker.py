@@ -23,3 +23,8 @@ def add_book():
     books = load_books()
     author = input("Введите имя автора книги:")
     title = input ("Введите название книги:")
+
+    for book in books:
+        if book["author"].lower() == author.lower() and book["title"].lower() == title.lower():
+            print("Такая книга уже существует.")
+            return
