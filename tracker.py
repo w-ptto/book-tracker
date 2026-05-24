@@ -48,3 +48,26 @@ def average_rating():
     avg = sum(book["rating"] for book in books) / len(books)
 
     print(f"Средняя оценка: {avg:.2f}")
+
+def author_stats():
+    books = load_books()
+
+    if not books:
+        print("Нет данных.")
+        return
+
+    stats = {}
+
+    for book in books:
+        author = book["author"]
+
+        if author in stats:
+            stats[author] += 1
+        else:
+            stats[author] = 1
+
+    print("\nСтатистика по авторам:")
+
+    for author, count in stats.items():
+        print(f"{author}: {count} книг")
+
