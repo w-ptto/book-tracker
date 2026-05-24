@@ -28,3 +28,30 @@ def add_book():
         if book["author"].lower() == author.lower() and book["title"].lower() == title.lower():
             print("Такая книга уже существует.")
             return
+
+    while True:
+        try:
+            rating = int(input("Введите оценку (1-5): "))
+
+            if 1 <= rating <= 5:
+                break
+
+            print("Оценка должна быть от 1 до 5.")
+
+        except ValueError:
+            print("Введите число.")
+
+    read_date = input("Введите дату прочтения: ")
+
+    new_book = {
+        "author": author,
+        "title": title,
+        "rating": rating,
+        "date": read_date
+    }
+
+    books.append(new_book)
+
+    save_books(books)
+
+    print("Книга добавлена.")
