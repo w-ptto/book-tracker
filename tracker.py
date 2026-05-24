@@ -19,6 +19,8 @@ def save_books(books):
     with open(FILE_NAME, "w", encoding="utf-8") as file:
         json.dump(books, file, ensure_ascii=False, indent=4)
 
+        
+
 def delete_book():
     books = load_books()
 
@@ -45,3 +47,98 @@ def delete_book():
 
     except ValueError:
         print("Введите число.")
+
+######################################
+
+def show_books():
+    books = load_books()
+
+    if not books:
+        print("Список книг пуст.")
+        return
+
+    print("\nСписок книг:")
+
+    for index, book in enumerate(books, start=1):
+        print(
+            f"{index}. "
+            f"{book['author']} — "
+            f"{book['title']} | "
+            f"Оценка: {book['rating']} | "
+            f"Дата: {book['date']}"
+        )
+
+
+def average_rating():
+    books = load_books()
+
+    if not books:
+        print("Нет книг для расчёта.")
+        return
+
+    avg = sum(book["rating"] for book in books) / len(books)
+
+    print(f"Средняя оценка: {avg:.2f}")
+
+def author_stats():
+    books = load_books()
+
+    if not books:
+        print("Нет данных.")
+        return
+
+    stats = {}
+
+    for book in books:
+        author = book["author"]
+
+        if author in stats:
+            stats[author] += 1
+        else:
+            stats[author] = 1
+
+    print("\nСтатистика по авторам:")
+
+    for author, count in stats.items():
+        print(f"{author}: {count} книг")
+        
+########################################
+
+def add_book():
+    books = load_books()
+    author = input("Введите имя автора книги:")
+    title = input ("Введите название книги:")
+
+    for book in books:
+        if book["author"].lower() == author.lower() and book["title"].lower() == title.lower():
+            print("Такая книга уже существует.")
+            return
+
+    while True:
+        try:
+            rating = int(input("Введите оценку (1-5): "))
+
+            if 1 <= rating <= 5:
+                break
+
+            print("Оценка должна быть от 1 до 5.")
+
+        except ValueError:
+            print("Введите число.")
+
+    read_date = input("Введите дату прочтения: ")
+
+    new_book = {
+        "author": author,
+        "title": title,
+        "rating": rating,
+        "date": read_date
+    }
+
+    books.append(new_book)
+
+    save_books(books)
+
+    print("Книга добавлена.")
+
+
